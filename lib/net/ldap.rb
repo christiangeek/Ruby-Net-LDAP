@@ -1204,10 +1204,14 @@ module Net
             if c.oid == LdapControls::PagedResults
               more_pages = false # just in case some bogus server sends us >1 of these.
               if c.value and c.value.length > 0
+                size = c.value.read_ber[0]
                 cookie = c.value.read_ber[1]
                 if cookie and cookie.length > 0
                   rfc2696_cookie[1] = cookie
                   more_pages = true
+                end
+                if size and size > 0
+                  rfc2696_cookie[0] = size
                 end
               end
             end
