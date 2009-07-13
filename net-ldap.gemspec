@@ -11,7 +11,7 @@
 
 spec = Gem::Specification.new do |s|
   s.name              = "ruby-net-ldap"
-  s.version           = "0.0.2"
+  s.version           = "0.0.2.1"
   s.summary           = %q(A pure Ruby LDAP client library.)
   s.platform          = Gem::Platform::RUBY
 
@@ -26,10 +26,9 @@ spec = Gem::Specification.new do |s|
 
   s.test_files        = %w{tests/testem.rb}
 
-  s.author            = "Francis Cianfrocca"
-  s.email             = "garbagecat10@gmail.com"
-  s.rubyforge_project = %q(net-ldap)
-  s.homepage          = "http://rubyforge.org/projects/net-ldap"
+  s.author            = "Gabe Bell/Francis Cianfrocca"
+  s.email             = "christiangeek@gmail.com"
+  s.homepage          = "http://github.com/christiangeek/Ruby-Net--LDAP"
 
   description = []
   File.open("README") do |file|
