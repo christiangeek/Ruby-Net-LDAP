@@ -27,8 +27,7 @@
 #---------------------------------------------------------------------------
 #
 #
-
-
+require 'openssl'
 
 
 module Net
@@ -193,16 +192,18 @@ class Fixnum
   # to_ber
   #
   def to_ber
-    i = [self].pack('w')
-    [2, i.length].pack("CC") + i
+    #i = [self].pack('w')
+    #[2, i.length].pack("CC") + i
+    [2].pack("C")+OpenSSL::ASN1::Integer(self, 2, :IMPLICIT, :APPLICATION).to_der[1..128]
   end
 
   #
   # to_ber_enumerated
   #
   def to_ber_enumerated
-    i = [self].pack('w')
-    [10, i.length].pack("CC") + i
+    #i = [self].pack('w')
+    #[10, i.length].pack("CC") + i
+    [10].pack("C")+OpenSSL::ASN1::Integer(self, 2, :IMPLICIT, :APPLICATION).to_der[1..128]
   end
 
   #
@@ -223,12 +224,14 @@ end # class Fixnum
 class Bignum
 
   def to_ber
-    i = [self].pack('w')
-    i.length > 126 and raise Net::BER::BerError.new( "range error in bignum" )
-    [2, i.length].pack("CC") + i
+    #i = [self].pack('w')
+    #i.length > 126 and raise Net::BER::BerError.new( "range error in bignum" )
+    #[2, i.length].pack("CC") + i
+    [2].pack("C")+OpenSSL::ASN1::Integer(self, 2, :IMPLICIT, :APPLICATION).to_der[1..128]
   end
 
 end
+
 
 
 
