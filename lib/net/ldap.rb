@@ -1127,6 +1127,8 @@ module Net
       search_filter = (args && args[:filter]) || Filter.eq( "objectclass", "*" )
       search_filter = Filter.construct(search_filter) if search_filter.is_a?(String)
       search_base = (args && args[:base]) || "dc=example,dc=com"
+      size_limit = (args && args[:size_limit]) || 0
+      time_limit = (args && args[:time_limit]) || 0
       search_attributes = ((args && args[:attributes]) || []).map {|attr| attr.to_s.to_ber}
       return_referrals = args && args[:return_referrals] == true
 
@@ -1148,8 +1150,8 @@ module Net
           search_base.to_ber,
           scope.to_ber_enumerated,
           0.to_ber_enumerated,
-          0.to_ber,
-          0.to_ber,
+          size_limit.to_ber,
+          time_limit.to_be,
           attributes_only.to_ber,
           search_filter.to_ber,
           search_attributes.to_ber_sequence
